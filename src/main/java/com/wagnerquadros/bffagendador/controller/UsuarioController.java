@@ -8,6 +8,7 @@ import com.wagnerquadros.bffagendador.business.dto.in.UsuarioRequestDTO;
 import com.wagnerquadros.bffagendador.business.dto.out.EnderecoResponseDTO;
 import com.wagnerquadros.bffagendador.business.dto.out.TelefoneResponseDTO;
 import com.wagnerquadros.bffagendador.business.dto.out.UsuarioResponseDTO;
+import com.wagnerquadros.bffagendador.business.dto.out.ViaCepDTOResponse;
 import com.wagnerquadros.bffagendador.business.service.UsuarioService;
 import com.wagnerquadros.bffagendador.infrastructure.security.SecurityConfig;
 import io.swagger.v3.oas.annotations.Operation;
@@ -124,5 +125,14 @@ public class UsuarioController {
     public ResponseEntity<TelefoneResponseDTO> cadastraEndereco(@RequestBody TelefoneRequestDTO telefoneDTO,
                                                                 @RequestHeader(name = "Authorization", required = false) String token){
         return ResponseEntity.ok(usuarioService.cadastraTelefone(token,telefoneDTO));
+    }
+
+    @GetMapping("/endereco/{cep}")
+    @Operation(summary = "Busca endereço pelo CEP", description = "Busca dados de endereço pelo CEP")
+    @ApiResponse(responseCode = "200", description = "Dados de endereço retornados com sucesso")
+    @ApiResponse(responseCode = "400", description = "Cep inválido")
+    @ApiResponse(responseCode = "500", description = "Erro de servidor")
+    public ResponseEntity<ViaCepDTOResponse> buscarEndereco(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(usuarioService.buscarEnderecoPorCep(cep));
     }
 }

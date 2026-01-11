@@ -8,10 +8,14 @@ import com.wagnerquadros.bffagendador.business.dto.in.UsuarioRequestDTO;
 import com.wagnerquadros.bffagendador.business.dto.out.EnderecoResponseDTO;
 import com.wagnerquadros.bffagendador.business.dto.out.TelefoneResponseDTO;
 import com.wagnerquadros.bffagendador.business.dto.out.UsuarioResponseDTO;
+import com.wagnerquadros.bffagendador.business.dto.out.ViaCepDTOResponse;
 import com.wagnerquadros.bffagendador.infrastructure.client.UsuarioClient;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 @RequiredArgsConstructor
@@ -54,4 +58,9 @@ public class UsuarioService {
     public TelefoneResponseDTO cadastraTelefone(String token, TelefoneRequestDTO telefoneDTO){
         return client.cadastraTelefone(telefoneDTO, token);
     }
+
+    public ViaCepDTOResponse buscarEnderecoPorCep(String cep){
+        return client.buscarDadosCep(cep);
+    }
+
 }
